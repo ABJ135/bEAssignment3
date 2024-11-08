@@ -41,7 +41,22 @@ app.get('/data/search',(req,res)=>{
 
     const foundItem = arr.filter(item=> item.name.toLowerCase().includes(search.toLowerCase()))
 
-    res.send(foundItem)
+    res.json(foundItem)
+  })
+})
+
+//This is a get request with params
+app.get('/data/:id',(req,res)=>{
+  const id =parseInt(req.params.id);
+  fs.readFile('abc.json',(err,data)=>{
+    if(err){
+      res.json('File error')
+    }
+    else{
+      const arr = JSON.parse(data)
+      const foundItem = arr.find(item=>item.id === id)
+      res.json(foundItem)
+    }
   })
 })
 
