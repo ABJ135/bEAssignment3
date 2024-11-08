@@ -60,6 +60,36 @@ app.get('/data/:id',(req,res)=>{
   })
 })
 
+//This is put request
+app.put('/data/:id',(req,res)=>{
+const id = parseInt(req.params.id);
+const item = req.body;
+
+
+fs.readFile('abc.json',(err,data)=>{
+  if(err){
+    res.json("File error");
+  }
+  
+    let arr = JSON.parse(data);
+
+    arr[id-1]=item;
+  
+
+  fs.writeFile('abc.json',JSON.stringify(arr),(err)=>{
+    if(err){
+      console.log('Error writing in file')
+    }
+    else{
+    //  res.send("Data written successfully")
+      res.json(arr);
+    }
+  });
+});
+});
+
+//This is a delete request
+
 app.listen(port, (req, res) => {
   console.log(`server is running at port ${port}`);
 });
